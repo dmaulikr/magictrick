@@ -15,7 +15,6 @@
 @property (nonatomic) BOOL symmetrical;
 @property (nonatomic) BOOL faceDown;
 
-- (void)newCard;
 
 @end
 

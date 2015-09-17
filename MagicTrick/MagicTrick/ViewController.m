@@ -12,14 +12,14 @@
 
 @interface ViewController ()
 
-@property (nonatomic, strong) NSSet *asymmetricalCards;
-@property (nonatomic, strong) NSSet *faceCards;
-@property (nonatomic, strong) NSSet *allCards;
+@property (nonatomic, strong) NSMutableArray *asymmetricalCards;
+@property (nonatomic, strong) NSMutableArray *faceCards;
+@property (nonatomic, strong) NSMutableArray *allCards;
 
 @property BOOL isFirstCardFace;
 @property BOOL cardsReset;
 
-@property (nonatomic, strong) NSArray *gameCards;
+@property (nonatomic, strong) NSMutableArray *gameCards;
 
 @end
 
@@ -62,18 +62,33 @@
     _cardsReset = [self isAllCardsFaceDown];
     
     if (_cardsReset) {
-        
+        [self chooseFirstCard];
+    } else {
+        [self chooseCard];
     }
+}
+
+- (void)chooseCard {
+    
 }
 
 // only execute if cards are reset
 - (void)chooseFirstCard {
     // lol janky random number
     NSInteger randomNumber = arc4random() % 16;
-    
     if (randomNumber < 7) {
         _isFirstCardFace = YES;
         
+        // set first card to random face card
+        NSUInteger randomIndex = arc4random() % [_faceCards count];
+        _gameCards[0] = _faceCards[randomIndex];
+        
+    } else {
+        _isFirstCardFace = NO;
+        
+        // set first card to random asymmetrical card
+        NSUInteger randomIndex = arc4random() % [_asymmetricalCards count];
+        _gameCards[0] = _faceCards[randomIndex];
     }
     
 }
