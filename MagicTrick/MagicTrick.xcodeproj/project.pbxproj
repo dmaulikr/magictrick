@@ -68,6 +68,8 @@
 		F7195E291BAB724A005CC439 /* spades_j@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7195E1C1BAB724A005CC439 /* spades_j@2x.png */; };
 		F7195E2A1BAB724A005CC439 /* spades_k@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7195E1D1BAB724A005CC439 /* spades_k@2x.png */; };
 		F7195E2B1BAB724A005CC439 /* spades_q@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7195E1E1BAB724A005CC439 /* spades_q@2x.png */; };
+		F7195E2E1BAB7310005CC439 /* MTCardImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F7195E2D1BAB7310005CC439 /* MTCardImageManager.m */; };
+		F7195E311BAB7848005CC439 /* MTCard.m in Sources */ = {isa = PBXBuildFile; fileRef = F7195E301BAB7848005CC439 /* MTCard.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +151,10 @@
 		F7195E1C1BAB724A005CC439 /* spades_j@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spades_j@2x.png"; sourceTree = "<group>"; };
 		F7195E1D1BAB724A005CC439 /* spades_k@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spades_k@2x.png"; sourceTree = "<group>"; };
 		F7195E1E1BAB724A005CC439 /* spades_q@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spades_q@2x.png"; sourceTree = "<group>"; };
+		F7195E2C1BAB7310005CC439 /* MTCardImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCardImageManager.h; sourceTree = "<group>"; };
+		F7195E2D1BAB7310005CC439 /* MTCardImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCardImageManager.m; sourceTree = "<group>"; };
+		F7195E2F1BAB7848005CC439 /* MTCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCard.h; sourceTree = "<group>"; };
+		F7195E301BAB7848005CC439 /* MTCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCard.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +207,10 @@
 				05C1B6DA1BAB6DEF008E2576 /* Supporting Files */,
 				05C1B7001BAB6EA8008E2576 /* card.h */,
 				05C1B7011BAB6EA8008E2576 /* card.m */,
+				F7195E2C1BAB7310005CC439 /* MTCardImageManager.h */,
+				F7195E2D1BAB7310005CC439 /* MTCardImageManager.m */,
+				F7195E2F1BAB7848005CC439 /* MTCard.h */,
+				F7195E301BAB7848005CC439 /* MTCard.m */,
 			);
 			path = MagicTrick;
 			sourceTree = "<group>";
@@ -476,9 +486,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7195E2E1BAB7310005CC439 /* MTCardImageManager.m in Sources */,
 				05C1B6E31BAB6DEF008E2576 /* ViewController.m in Sources */,
 				05C1B6E01BAB6DEF008E2576 /* AppDelegate.m in Sources */,
 				05C1B7021BAB6EA8008E2576 /* card.m in Sources */,
+				F7195E311BAB7848005CC439 /* MTCard.m in Sources */,
 				05C1B6DD1BAB6DEF008E2576 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
