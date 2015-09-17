@@ -61,6 +61,7 @@
     return YES;
 }
 
+// call this function when a user taps a card. know which index was tapped (left being 0, right being 4)
 - (void)cardTapped:(NSInteger)index {
     _cardsReset = [self isAllCardsFaceDown];
     
@@ -92,7 +93,7 @@
     // woohoo it's after the first index so we can choose any card!!
     else {
         NSUInteger randomIndex = arc4random() % [_allCards count];
-        _gameCards[index] = _allCards;
+        _gameCards[index] = _allCards[randomIndex];
     }
 }
 
