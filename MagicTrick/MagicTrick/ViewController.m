@@ -32,6 +32,8 @@
 - (id)init {
     self = [super init];
     
+    // setup initial game cards (just mark everything as flipped down, even if they dont have face value)
+    [self setupGameCards];
     return self;
 }
 
@@ -40,6 +42,7 @@
 - (void)setupGameCards {
     _gameCards = [[NSMutableArray alloc] init];
     for (int i = 0; i < 5; i++) {
+        
         // TODO: Fix frame
         card *newCard = [[card alloc] initWithFrame:CGRectZero];
         newCard.faceDown = YES;
@@ -61,6 +64,7 @@
 - (void)cardTapped:(NSInteger)index {
     _cardsReset = [self isAllCardsFaceDown];
     
+    // we know if it's first card tapped or not based on if cards have been reset (all were facing down)
     if (_cardsReset) {
         [self chooseFirstCard:index];
     } else {
@@ -96,7 +100,8 @@
 - (void)chooseFirstCard:(NSInteger)index {
     _firstCardIndex = index;
     
-    if ([self thisWillFlipAQuarter]) {
+    // randomly chooses whether to select a face card or asymmetrical card
+    if ([self thisWillRollADice]) {
         _isFirstCardFace = YES;
         
         // set first card to random face card
@@ -121,6 +126,17 @@
         return YES; // 25% of the time you get 0
     } else {
         return NO; // the other 25%, when you get 1
+    }
+}
+
+// it's like rolling a dice with yes/no values. lol.
+- (BOOL)thisWillRollADice {
+    int x = arc4random() % 6;
+    
+    if (x < 2) {
+        return YES;
+    } else {
+        return NO;
     }
 }
 
