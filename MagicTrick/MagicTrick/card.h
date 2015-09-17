@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface card ()
+@interface card : UIView
 
 @property (nonatomic, strong) UIImageView *cardView;
-@property (nonatomic, strong) NSInteger *value;
-@property (nonatomic, strong) BOOL *flipped;
+@property (nonatomic) NSInteger *value;
+@property (nonatomic) BOOL symmetrical;
+@property (nonatomic) BOOL faceDown;
+
+- (void)newCard;
 
 @end
+
