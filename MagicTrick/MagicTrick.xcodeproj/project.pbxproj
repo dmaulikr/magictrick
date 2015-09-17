@@ -14,6 +14,7 @@
 		05C1B6E81BAB6DEF008E2576 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05C1B6E71BAB6DEF008E2576 /* Images.xcassets */; };
 		05C1B6EB1BAB6DEF008E2576 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05C1B6E91BAB6DEF008E2576 /* LaunchScreen.xib */; };
 		05C1B6F71BAB6DEF008E2576 /* MagicTrickTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C1B6F61BAB6DEF008E2576 /* MagicTrickTests.m */; };
+		05C1B7021BAB6EA8008E2576 /* card.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C1B7011BAB6EA8008E2576 /* card.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		05C1B6F01BAB6DEF008E2576 /* MagicTrickTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MagicTrickTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		05C1B6F51BAB6DEF008E2576 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05C1B6F61BAB6DEF008E2576 /* MagicTrickTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MagicTrickTests.m; sourceTree = "<group>"; };
+		05C1B7001BAB6EA8008E2576 /* card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = card.h; sourceTree = "<group>"; };
+		05C1B7011BAB6EA8008E2576 /* card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = card.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +92,8 @@
 				05C1B6E71BAB6DEF008E2576 /* Images.xcassets */,
 				05C1B6E91BAB6DEF008E2576 /* LaunchScreen.xib */,
 				05C1B6DA1BAB6DEF008E2576 /* Supporting Files */,
+				05C1B7001BAB6EA8008E2576 /* card.h */,
+				05C1B7011BAB6EA8008E2576 /* card.m */,
 			);
 			path = MagicTrick;
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 			files = (
 				05C1B6E31BAB6DEF008E2576 /* ViewController.m in Sources */,
 				05C1B6E01BAB6DEF008E2576 /* AppDelegate.m in Sources */,
+				05C1B7021BAB6EA8008E2576 /* card.m in Sources */,
 				05C1B6DD1BAB6DEF008E2576 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
