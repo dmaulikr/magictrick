@@ -9,7 +9,17 @@
 #import "MTCardImageManager.h"
 
 @interface MTCardImageManager ()
+
 @property (nonatomic, strong) NSDictionary *symmetryMap;
+
+@property (nonatomic, strong, readwrite) NSArray *allCards;
+
+@property (nonatomic, strong, readwrite) NSArray *symmetricalCards;
+
+@property (nonatomic, strong, readwrite) NSArray *asymmetricalCards;
+
+@property (nonatomic, strong, readwrite) NSArray *faceCards;
+
 @end
 
 @implementation MTCardImageManager
@@ -83,8 +93,52 @@
                               @"spades_q.png" : @(YES),
                               @"spades_k.png" : @(YES),
                               @"spades_a.png" : @(NO)};
+        
+        [self initializeCards];
     }
     return self;
+}
+
+- (void)initializeCards
+{
+    NSMutableArray *allCards = [[NSMutableArray alloc] init];
+    NSMutableArray *symmetricalCards = [[NSMutableArray alloc] init];
+    NSMutableArray *asymmetricalCards = [[NSMutableArray alloc] init];
+    NSMutableArray *faceCards = [[NSMutableArray alloc] init];
+    
+    for (int i = 1; i < 14; i++) {
+        MTCard *clubsCard = [self cardWithSuit:MTCardSuitClubs andValue:i];
+        MTCard *diamondsCard = [self cardWithSuit:MTCardSuitDiamonds andValue:i];
+        MTCard *heartsCard = [self cardWithSuit:MTCardSuitHearts andValue:i];
+        MTCard *spadesCard = [self cardWithSuit:MTCardSuitSpades andValue:i];
+
+        [allCards addObject:clubsCard];
+        [allCards addObject:diamondsCard];
+        [allCards addObject:heartsCard];
+        [allCards addObject:spadesCard];
+    }
+    
+    self.allCards = [allCards copy];
+    
+    for (MTCard *card in self.allCards) {
+        
+        if (card.symmetrical) {
+            [symmetricalCards addObject:card];
+        }
+        
+        else if (!card.symmetrical) {
+            [asymmetricalCards addObject:card];
+        }
+        
+        // If card is a face card
+        if (card.cardValue > 10) {
+            [faceCards addObject:card];
+        }
+    }
+    
+    self.symmetricalCards = [symmetricalCards copy];
+    self.asymmetricalCards = [asymmetricalCards copy];
+    self.faceCards = [faceCards copy];
 }
 
 - (MTCard *)cardWithSuit:(MTCardSuit)cardSuit andValue:(NSInteger)cardValue

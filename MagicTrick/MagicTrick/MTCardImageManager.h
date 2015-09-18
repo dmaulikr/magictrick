@@ -12,8 +12,14 @@
 
 @interface MTCardImageManager : NSObject
 
-+ (instancetype)sharedInstance;
+@property (nonatomic, strong, readonly) NSArray *allCards;
 
-- (MTCard *)cardWithSuit:(MTCardSuit)cardSuit andValue:(NSInteger)cardValue;
+@property (nonatomic, strong, readonly) NSArray *symmetricalCards;
+
+@property (nonatomic, strong, readonly) NSArray *asymmetricalCards;
+
+@property (nonatomic, strong, readonly) NSArray *faceCards;
+
++ (instancetype)sharedInstance;
 
 @end

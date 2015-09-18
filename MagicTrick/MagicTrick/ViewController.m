@@ -16,12 +16,9 @@ static NSUInteger const kNumberOfGameCards = 5;
 
 @interface ViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) MTCardImageManager *cardManager;
 
-@property (nonatomic, strong) NSMutableArray *asymmetricalCards;
-@property (nonatomic, strong) NSMutableArray *symmetricalCards;
-@property (nonatomic, strong) NSMutableArray *faceCards;
-@property (nonatomic, strong) NSMutableArray *allCards;
+@property (nonatomic, strong) UICollectionView *collectionView;
 
 @property BOOL isFirstCardFace;
 @property BOOL cardsReset;
@@ -38,10 +35,9 @@ static NSUInteger const kNumberOfGameCards = 5;
     self = [super init];
     
     if (self) {
-        self.view.backgroundColor = [UIColor yellowColor];
-    
-        // setup initial game cards (just mark everything as flipped down, even if they dont have face value)
-        [self setupGameCards];
+        self.view.backgroundColor = [UIColor blackColor];
+        self.cardManager = [MTCardImageManager sharedInstance];
+        self.gameCards = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -51,10 +47,10 @@ static NSUInteger const kNumberOfGameCards = 5;
 {
     [super viewDidLoad];
     
-    [self initializeGameCards];
+    [self initializeViews];
 }
 
-- (void)initializeGameCards
+- (void)initializeViews
 {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
@@ -76,7 +72,6 @@ static NSUInteger const kNumberOfGameCards = 5;
 {
     MTCardCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cardCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
-    cell.card = [[MTCardImageManager sharedInstance] cardWithSuit:MTCardSuitClubs andValue:8];
     return cell;
 }
 
@@ -84,7 +79,15 @@ static NSUInteger const kNumberOfGameCards = 5;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    // Calculate the next card to show, according to Lucy's algorithm
+    [self cardTapped:indexPath.item];
+    
     MTCardCollectionViewCell *cell = (MTCardCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    
+    // Here we have to get the next appropriate card to display, before flipping the card over
+    cell.card = [self.gameCards objectAtIndex:indexPath.item];
+
+    // Finally, flip the card over
     [cell flipCard];
 }
 
@@ -130,30 +133,6 @@ static NSUInteger const kNumberOfGameCards = 5;
     return 0.0f;
 }
 
-// when initialized, all cards are face down
-
-- (void)setupGameCards {
-    _gameCards = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 5; i++) {
-        
-        // TODO: Fix frame
-        card *newCard = [[card alloc] initWithFrame:CGRectZero];
-        newCard.faceDown = YES;
-    }
-}
-
-// checks to see if all cards are face down
-- (BOOL)isAllCardsFaceDown {
-    for (int i = 0; i < 5; i++) {
-        card *gameCard = _gameCards[i];
-        if (!gameCard.faceDown) {
-            return NO;
-        }
-    }
-    _firstCardIndex = -1;
-    return YES;
-}
-
 // call this function when a user taps a card. know which index was tapped (left being 0, right being 4)
 - (void)cardTapped:(NSInteger)index {
     _cardsReset = [self isAllCardsFaceDown];
@@ -169,24 +148,24 @@ static NSUInteger const kNumberOfGameCards = 5;
 - (void)chooseCard:(NSInteger)index {
     // first card chosen was a face, so all cards before must be symmetrical
     if (index < _firstCardIndex && _isFirstCardFace) {
-        NSUInteger randomIndex = arc4random() % [_symmetricalCards count];
-        _gameCards[index] = _symmetricalCards[randomIndex];
+        NSUInteger randomIndex = arc4random() % [self.cardManager.symmetricalCards count];
+        _gameCards[index] = self.cardManager.symmetricalCards[randomIndex];
     }
     // first card chosen was asymmetrical, so face cards or symmetrical cards work
     else if (index < _firstCardIndex) {
         // randomly choose face or symmetrical
         if ([self thisWillFlipAQuarter]) {
-            NSUInteger randomIndex = arc4random() % [_symmetricalCards count];
-            _gameCards[index] = _symmetricalCards[randomIndex];
+            NSUInteger randomIndex = arc4random() % [self.cardManager.symmetricalCards count];
+            _gameCards[index] = self.cardManager.symmetricalCards[randomIndex];
         } else {
-            NSUInteger randomIndex = arc4random() % [_faceCards count];
-            _gameCards[index] = _faceCards[randomIndex];
+            NSUInteger randomIndex = arc4random() % [self.cardManager.faceCards count];
+            _gameCards[index] = self.cardManager.faceCards[randomIndex];
         }
     }
     // woohoo it's after the first index so we can choose any card!!
     else {
-        NSUInteger randomIndex = arc4random() % [_allCards count];
-        _gameCards[index] = _allCards[randomIndex];
+        NSUInteger randomIndex = arc4random() % [self.cardManager.allCards count];
+        _gameCards[index] = self.cardManager.allCards[randomIndex];
     }
 }
 
@@ -199,18 +178,20 @@ static NSUInteger const kNumberOfGameCards = 5;
         _isFirstCardFace = YES;
         
         // set first card to random face card
-        NSUInteger randomIndex = arc4random() % [_faceCards count];
-        _gameCards[_firstCardIndex] = _faceCards[randomIndex];
+        NSUInteger randomIndex = arc4random() % [self.cardManager.faceCards count];
+        _gameCards[_firstCardIndex] = self.cardManager.faceCards[randomIndex];
         
     } else {
         _isFirstCardFace = NO;
         
         // set first card to random asymmetrical card
-        NSUInteger randomIndex = arc4random() % [_asymmetricalCards count];
-        _gameCards[_firstCardIndex] = _faceCards[randomIndex];
+        NSUInteger randomIndex = arc4random() % [self.cardManager.asymmetricalCards count];
+        _gameCards[_firstCardIndex] = self.cardManager.faceCards[randomIndex];
     }
     
 }
+
+#pragma mark - Card Algorithm Helper methods
 
 // it's like flipping a quarter. lol.
 - (BOOL)thisWillFlipAQuarter {
@@ -232,6 +213,17 @@ static NSUInteger const kNumberOfGameCards = 5;
     } else {
         return NO;
     }
+}
+
+// checks to see if all cards are face down
+- (BOOL)isAllCardsFaceDown {
+    for (MTCardCollectionViewCell *cell in self.collectionView.visibleCells) {
+        if (!cell.faceDown) {
+            return NO;
+        }
+    }
+    _firstCardIndex = -1;
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {
