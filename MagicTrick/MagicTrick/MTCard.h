@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@import UIKit;
 
 typedef NS_ENUM(NSUInteger, MTCardSuit) {
     MTCardSuitClubs,

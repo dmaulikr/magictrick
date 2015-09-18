@@ -16,5 +16,4 @@
 
 - (MTCard *)cardWithSuit:(MTCardSuit)cardSuit andValue:(NSInteger)cardValue;
 
-
 @end

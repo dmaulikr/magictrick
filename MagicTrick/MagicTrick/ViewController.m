@@ -8,9 +8,15 @@
 
 #import "ViewController.h"
 #import "card.h"
+#import "MTCardCollectionViewCell.h"
+#import "MTCardImageManager.h"
 
+static CGFloat const kInterCardSpacing = 15.0f;
+static NSUInteger const kNumberOfGameCards = 5;
 
-@interface ViewController ()
+@interface ViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+
+@property (nonatomic, strong) UICollectionView *collectionView;
 
 @property (nonatomic, strong) NSMutableArray *asymmetricalCards;
 @property (nonatomic, strong) NSMutableArray *symmetricalCards;
@@ -28,13 +34,100 @@
 
 @implementation ViewController
 
-
 - (id)init {
     self = [super init];
     
-    // setup initial game cards (just mark everything as flipped down, even if they dont have face value)
-    [self setupGameCards];
+    if (self) {
+        self.view.backgroundColor = [UIColor yellowColor];
+    
+        // setup initial game cards (just mark everything as flipped down, even if they dont have face value)
+        [self setupGameCards];
+    }
+    
     return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self initializeGameCards];
+}
+
+- (void)initializeGameCards
+{
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
+    self.collectionView.backgroundColor = [UIColor clearColor];
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
+    [self.collectionView registerClass:[MTCardCollectionViewCell class] forCellWithReuseIdentifier:@"cardCell"];
+    [self.view addSubview:self.collectionView];
+}
+
+#pragma mark - UICollectionViewDataSource methods
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 5;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    MTCardCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cardCell" forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor whiteColor];
+    cell.card = [[MTCardImageManager sharedInstance] cardWithSuit:MTCardSuitClubs andValue:8];
+    return cell;
+}
+
+#pragma mark - UICollectionViewDelegate methods
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    MTCardCollectionViewCell *cell = (MTCardCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    [cell flipCard];
+}
+
+#pragma mark - UICollectionViewDelegateFlowLayout methods
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat cardWidth = 375.0f;
+    CGFloat cardHeight = 525.0f;
+    
+    CGRect screenRect = [UIScreen mainScreen].bounds;
+    CGFloat totalWidth = CGRectGetWidth(screenRect) - 4 * kInterCardSpacing;
+    
+    CGFloat scaledCardWidth = totalWidth / kNumberOfGameCards;
+    CGFloat scaledCardHeight = (scaledCardWidth / cardWidth) * cardHeight;
+    
+    return CGSizeMake(scaledCardWidth, scaledCardHeight);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    CGFloat cardWidth = 375.0f;
+    CGFloat cardHeight = 525.0f;
+    
+    CGRect screenRect = [UIScreen mainScreen].bounds;
+    CGFloat totalWidth = CGRectGetWidth(screenRect) - 4 * kInterCardSpacing;
+    
+    CGFloat scaledCardWidth = totalWidth / kNumberOfGameCards;
+    CGFloat scaledCardHeight = (scaledCardWidth / cardWidth) * cardHeight;
+    
+    CGFloat verticalMargin = (CGRectGetHeight(screenRect) - scaledCardHeight) / 2;
+    
+    return UIEdgeInsetsMake(verticalMargin, kInterCardSpacing, verticalMargin, kInterCardSpacing);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0.0f;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0.0f;
 }
 
 // when initialized, all cards are face down
@@ -139,11 +232,6 @@
     } else {
         return NO;
     }
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)didReceiveMemoryWarning {
