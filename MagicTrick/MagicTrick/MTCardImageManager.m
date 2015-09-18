@@ -122,14 +122,15 @@
     
     for (MTCard *card in self.allCards) {
         
-        if (card.symmetrical) {
-            [symmetricalCards addObject:card];
+        if (card.cardValue <= 10) {
+            if (card.symmetrical) {
+                [symmetricalCards addObject:card];
+            }
+            
+            else if (!card.symmetrical) {
+                [asymmetricalCards addObject:card];
+            }
         }
-        
-        else if (!card.symmetrical) {
-            [asymmetricalCards addObject:card];
-        }
-        
         // If card is a face card
         if (card.cardValue > 10) {
             [faceCards addObject:card];
