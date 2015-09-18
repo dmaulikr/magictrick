@@ -166,7 +166,12 @@ static NSUInteger const kNumberOfGameCards = 5;
             _gameCards[index] = self.cardManager.faceCards[randomIndex];
         }
     }
-    // woohoo it's after the first index so we can choose any card!!
+    // face card first card, all cards after must be symmetrical
+    else if (_isFirstCardFace) {
+        NSUInteger randomIndex = arc4random() % [self.cardManager.symmetricalCards count];
+        _gameCards[index] = self.cardManager.symmetricalCards[randomIndex];
+    }
+    // asymmetrical card first, any cards after
     else {
         NSUInteger randomIndex = arc4random() % [self.cardManager.allCards count];
         _gameCards[index] = self.cardManager.allCards[randomIndex];
