@@ -38,6 +38,10 @@ static NSUInteger const kNumberOfGameCards = 5;
         self.view.backgroundColor = [UIColor blackColor];
         self.cardManager = [MTCardImageManager sharedInstance];
         self.gameCards = [[NSMutableArray alloc] init];
+        
+        for (int i = 0; i < 5; i++) {
+            [self.gameCards addObject:[[NSObject alloc] init]];
+        }
     }
     
     return self;
