@@ -186,7 +186,7 @@ static NSUInteger const kNumberOfGameCards = 5;
         
         // set first card to random asymmetrical card
         NSUInteger randomIndex = arc4random() % [self.cardManager.asymmetricalCards count];
-        _gameCards[_firstCardIndex] = self.cardManager.faceCards[randomIndex];
+        _gameCards[_firstCardIndex] = self.cardManager.asymmetricalCards[randomIndex];
     }
     
 }
