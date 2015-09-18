@@ -39,7 +39,8 @@
     [super layoutSubviews];
     
     self.backImageView.frame = self.frontImageView.frame = self.contentView.bounds;
-
+    self.backgroundColor = [UIColor clearColor];
+    self.contentView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)initializeImageViews
@@ -67,12 +68,19 @@
 - (void)flipCard
 {
     self.faceDown = !self.faceDown;
-    
-    if (self.faceDown) {
-        [self.contentView bringSubviewToFront:self.backImageView];
-    } else {
-        [self.contentView bringSubviewToFront:self.frontImageView];
-    }
+ 
+    [UIView transitionWithView:self.contentView
+                      duration:0.18f
+                       options:UIViewAnimationOptionTransitionFlipFromLeft | UIViewAnimationOptionCurveEaseInOut
+                    animations:^{
+                        if (self.faceDown) {
+                            [self.contentView bringSubviewToFront:self.backImageView];
+                        } else {
+                            [self.contentView bringSubviewToFront:self.frontImageView];
+                        }
+                        
+    } completion:^(BOOL finished) {
+    }];
 }
 
 @end
