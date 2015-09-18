@@ -149,32 +149,50 @@ static NSUInteger const kNumberOfGameCards = 5;
     }
 }
 
+- (MTCard *)chooseCardFromArray:(NSArray *)cardsArray {
+    NSUInteger randomIndex = arc4random() % [cardsArray count];
+    
+    MTCard *card = cardsArray[randomIndex];
+    
+    while ([_gameCards containsObject:card]) {
+        NSUInteger randomIndex = arc4random() % [cardsArray count];
+        card = cardsArray[randomIndex];
+    }
+    
+    return card;
+}
+
 - (void)chooseCard:(NSInteger)index {
     // first card chosen was a face, so all cards before must be symmetrical
     if (index < _firstCardIndex && _isFirstCardFace) {
-        NSUInteger randomIndex = arc4random() % [self.cardManager.symmetricalCards count];
-        _gameCards[index] = self.cardManager.symmetricalCards[randomIndex];
+        MTCard *card = [self chooseCardFromArray:self.cardManager.symmetricalCards];
+
+        _gameCards[index] = card;
     }
     // first card chosen was asymmetrical, so face cards or symmetrical cards work
     else if (index < _firstCardIndex) {
         // randomly choose face or symmetrical
         if ([self thisWillFlipAQuarter]) {
-            NSUInteger randomIndex = arc4random() % [self.cardManager.symmetricalCards count];
-            _gameCards[index] = self.cardManager.symmetricalCards[randomIndex];
+            MTCard *card = [self chooseCardFromArray:self.cardManager.symmetricalCards];
+            
+            _gameCards[index] = card;
         } else {
-            NSUInteger randomIndex = arc4random() % [self.cardManager.faceCards count];
-            _gameCards[index] = self.cardManager.faceCards[randomIndex];
+            MTCard *card = [self chooseCardFromArray:self.cardManager.faceCards];
+            
+            _gameCards[index] = card;
         }
     }
     // face card first card, all cards after must be symmetrical
     else if (_isFirstCardFace) {
-        NSUInteger randomIndex = arc4random() % [self.cardManager.symmetricalCards count];
-        _gameCards[index] = self.cardManager.symmetricalCards[randomIndex];
+        MTCard *card = [self chooseCardFromArray:self.cardManager.symmetricalCards];
+        
+        _gameCards[index] = card;
     }
     // asymmetrical card first, any cards after
     else {
-        NSUInteger randomIndex = arc4random() % [self.cardManager.allCards count];
-        _gameCards[index] = self.cardManager.allCards[randomIndex];
+        MTCard *card = [self chooseCardFromArray:self.cardManager.allCards];
+        
+        _gameCards[index] = card;
     }
 }
 
