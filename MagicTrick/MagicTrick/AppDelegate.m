@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "MTSplashViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,7 +22,7 @@
     
     // Override point for customization after application launch.
     
-    ViewController *test = [[ViewController alloc] init];
+    MTSplashViewController *test = [[MTSplashViewController alloc] init];
     self.window.rootViewController = test;
     
     [self.window makeKeyAndVisible];

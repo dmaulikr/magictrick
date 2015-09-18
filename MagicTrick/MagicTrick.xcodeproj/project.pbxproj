@@ -71,6 +71,8 @@
 		F7195E2E1BAB7310005CC439 /* MTCardImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F7195E2D1BAB7310005CC439 /* MTCardImageManager.m */; };
 		F7195E311BAB7848005CC439 /* MTCard.m in Sources */ = {isa = PBXBuildFile; fileRef = F7195E301BAB7848005CC439 /* MTCard.m */; };
 		F7195E361BAB8A7B005CC439 /* MTCardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7195E351BAB8A7B005CC439 /* MTCardCollectionViewCell.m */; };
+		F748A08A1BAC9E380065A4EC /* MTSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F748A0891BAC9E380065A4EC /* MTSplashViewController.m */; };
+		F748A08D1BACA0040065A4EC /* MTAnimatingCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = F748A08C1BACA0040065A4EC /* MTAnimatingCardView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,6 +160,10 @@
 		F7195E301BAB7848005CC439 /* MTCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCard.m; sourceTree = "<group>"; };
 		F7195E341BAB8A7B005CC439 /* MTCardCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCardCollectionViewCell.h; sourceTree = "<group>"; };
 		F7195E351BAB8A7B005CC439 /* MTCardCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCardCollectionViewCell.m; sourceTree = "<group>"; };
+		F748A0881BAC9E380065A4EC /* MTSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTSplashViewController.h; sourceTree = "<group>"; };
+		F748A0891BAC9E380065A4EC /* MTSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTSplashViewController.m; sourceTree = "<group>"; };
+		F748A08B1BACA0040065A4EC /* MTAnimatingCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTAnimatingCardView.h; sourceTree = "<group>"; };
+		F748A08C1BACA0040065A4EC /* MTAnimatingCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTAnimatingCardView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,9 +205,9 @@
 		05C1B6D91BAB6DEF008E2576 /* MagicTrick */ = {
 			isa = PBXGroup;
 			children = (
-				F7195DBB1BAB71A7005CC439 /* card_assets */,
 				F7195E331BAB8A5D005CC439 /* Model */,
 				F7195E321BAB8A5A005CC439 /* View */,
+				F748A0871BAC9DAA0065A4EC /* Controller */,
 				05C1B6DE1BAB6DEF008E2576 /* AppDelegate.h */,
 				05C1B6DF1BAB6DEF008E2576 /* AppDelegate.m */,
 				05C1B6E11BAB6DEF008E2576 /* ViewController.h */,
@@ -209,6 +215,7 @@
 				05C1B6E41BAB6DEF008E2576 /* Main.storyboard */,
 				05C1B6E71BAB6DEF008E2576 /* Images.xcassets */,
 				05C1B6E91BAB6DEF008E2576 /* LaunchScreen.xib */,
+				F7195DBB1BAB71A7005CC439 /* card_assets */,
 				05C1B6DA1BAB6DEF008E2576 /* Supporting Files */,
 				05C1B7001BAB6EA8008E2576 /* card.h */,
 				05C1B7011BAB6EA8008E2576 /* card.m */,
@@ -339,6 +346,8 @@
 			children = (
 				F7195E341BAB8A7B005CC439 /* MTCardCollectionViewCell.h */,
 				F7195E351BAB8A7B005CC439 /* MTCardCollectionViewCell.m */,
+				F748A08B1BACA0040065A4EC /* MTAnimatingCardView.h */,
+				F748A08C1BACA0040065A4EC /* MTAnimatingCardView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -352,6 +361,15 @@
 				F7195E301BAB7848005CC439 /* MTCard.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		F748A0871BAC9DAA0065A4EC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F748A0881BAC9E380065A4EC /* MTSplashViewController.h */,
+				F748A0891BAC9E380065A4EC /* MTSplashViewController.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -509,11 +527,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7195E2E1BAB7310005CC439 /* MTCardImageManager.m in Sources */,
+				F748A08D1BACA0040065A4EC /* MTAnimatingCardView.m in Sources */,
 				05C1B6E31BAB6DEF008E2576 /* ViewController.m in Sources */,
 				05C1B6E01BAB6DEF008E2576 /* AppDelegate.m in Sources */,
 				F7195E361BAB8A7B005CC439 /* MTCardCollectionViewCell.m in Sources */,
 				05C1B7021BAB6EA8008E2576 /* card.m in Sources */,
 				F7195E311BAB7848005CC439 /* MTCard.m in Sources */,
+				F748A08A1BAC9E380065A4EC /* MTSplashViewController.m in Sources */,
 				05C1B6DD1BAB6DEF008E2576 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

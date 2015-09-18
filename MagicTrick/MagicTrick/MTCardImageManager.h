@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-@import UIKit;
 #import "MTCard.h"
+
+@import UIKit;
 
 @interface MTCardImageManager : NSObject
 
