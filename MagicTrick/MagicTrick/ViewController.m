@@ -13,6 +13,7 @@
 #import "MTAnimatingStarView.h"
 #import "MTCardFlowLayout.h"
 #import "SCGrowingButton.h"
+#import "MTSoundManager.h"
 
 @import AVFoundation;
 
@@ -37,35 +38,33 @@ static NSUInteger const kNumberOfGameCards = 5;
 
 @property (nonatomic, assign) NSInteger firstCardIndex;
 
-@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
-
 @property (nonatomic, strong) SCGrowingButton *homeButton;
 
 @end
 
-
 @implementation ViewController
 
-- (id)init {
+- (id)init
+{
     self = [super init];
-    
+
     if (self) {
         self.view.backgroundColor = [UIColor clearColor];
         self.cardManager = [MTCardImageManager sharedInstance];
         self.gameCards = [[NSMutableArray alloc] init];
-        
+
         for (int i = 0; i < 5; i++) {
             [self.gameCards addObject:[[NSObject alloc] init]];
         }
     }
-    
+
     return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.backgroundStarView = [[MTAnimatingStarView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.backgroundStarView];
 }
@@ -79,33 +78,27 @@ static NSUInteger const kNumberOfGameCards = 5;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+
     UIImage *homeImage = [UIImage imageNamed:@"homeButton.png"];
-    self.homeButton = [[SCGrowingButton alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - (homeImage.size.height) - 40, homeImage.size.width + 40, homeImage.size.height + 40)];
+    self.homeButton =
+        [[SCGrowingButton alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - (homeImage.size.height) - 40,
+                                                          homeImage.size.width + 40, homeImage.size.height + 40)];
     self.homeButton.image = homeImage;
     self.homeButton.imageInset = CGSizeMake(20, 20);
     self.homeButton.maximumScale = 1.05f;
-    self.homeButton.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, self.homeButton.center.y);
+    self.homeButton.center = CGPointMake(CGRectGetWidth(self.view.bounds) / 2, self.homeButton.center.y);
     [self.homeButton addTarget:self action:@selector(home:)];
     [self.view addSubview:self.homeButton];
-    
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self initializeCardViews];
     });
-
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"song_of_storms" ofType:@"mp3"];
-    NSURL *soundUrl = [NSURL fileURLWithPath:path];
-    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundUrl error:nil];
-    self.audioPlayer.numberOfLoops = -1;
-    [self.audioPlayer play];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.audioPlayer stop];
     [self.backgroundStarView removeFromSuperview];
-
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -132,23 +125,26 @@ static NSUInteger const kNumberOfGameCards = 5;
     [self.collectionView registerClass:[MTCardCollectionViewCell class] forCellWithReuseIdentifier:@"cardCell"];
     self.collectionView.alpha = 1.0f;
     [self.view insertSubview:self.collectionView belowSubview:self.homeButton];
-    
+
     [self animateNextCardIntoView];
 }
 
 - (void)animateNextCardIntoView
 {
     if (self.numberCardsShowing < 5) {
+        [[MTSoundManager sharedInstance] playSound:MTSoundCardDeal];
+        
         [UIView animateWithDuration:0.17f
                          animations:^{
                              [self.collectionView performBatchUpdates:^{
                                  self.numberCardsShowing++;
-                                 [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:self.numberCardsShowing-1 inSection:0]]];
+                                 [self.collectionView insertItemsAtIndexPaths:@[
+                                     [NSIndexPath indexPathForItem:self.numberCardsShowing - 1 inSection:0]
+                                 ]];
                              } completion:^(BOOL finished) {
                                  [self animateNextCardIntoView];
                              }];
                          }];
-
     }
 }
 
@@ -159,9 +155,11 @@ static NSUInteger const kNumberOfGameCards = 5;
     return self.numberCardsShowing;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    MTCardCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cardCell" forIndexPath:indexPath];
+    MTCardCollectionViewCell *cell =
+        [collectionView dequeueReusableCellWithReuseIdentifier:@"cardCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
     return cell;
 }
@@ -172,11 +170,13 @@ static NSUInteger const kNumberOfGameCards = 5;
 {
     // Calculate the next card to show, according to Lucy's algorithm
     [self cardTapped:indexPath.item];
-    
+
     MTCardCollectionViewCell *cell = (MTCardCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    
+
     // Here we have to get the next appropriate card to display, before flipping the card over
     cell.card = [self.gameCards objectAtIndex:indexPath.item];
+
+    [[MTSoundManager sharedInstance] playSound:MTSoundCardFlip];
 
     // Finally, flip the card over
     [cell flipCard];
@@ -184,50 +184,59 @@ static NSUInteger const kNumberOfGameCards = 5;
 
 #pragma mark - UICollectionViewDelegateFlowLayout methods
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat cardWidth = 375.0f;
     CGFloat cardHeight = 525.0f;
-    
+
     CGRect screenRect = [UIScreen mainScreen].bounds;
     CGFloat totalWidth = CGRectGetWidth(screenRect) - 8 * (kInterCardSpacing);
-    
+
     CGFloat scaledCardWidth = totalWidth / kNumberOfGameCards;
     CGFloat scaledCardHeight = (scaledCardWidth / cardWidth) * cardHeight;
-    
+
     return CGSizeMake(scaledCardWidth, scaledCardHeight);
 }
 
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
+                        layout:(UICollectionViewLayout *)collectionViewLayout
+        insetForSectionAtIndex:(NSInteger)section
 {
     CGFloat cardWidth = 375.0f;
     CGFloat cardHeight = 525.0f;
-    
+
     CGRect screenRect = [UIScreen mainScreen].bounds;
     CGFloat totalWidth = CGRectGetWidth(screenRect) - 4 * kInterCardSpacing;
-    
+
     CGFloat scaledCardWidth = totalWidth / kNumberOfGameCards;
     CGFloat scaledCardHeight = (scaledCardWidth / cardWidth) * cardHeight;
-    
+
     CGFloat verticalMargin = (CGRectGetHeight(screenRect) - scaledCardHeight) / 2;
-    
-    return UIEdgeInsetsMake(verticalMargin, 2*kInterCardSpacing, verticalMargin, 2*kInterCardSpacing);
+
+    return UIEdgeInsetsMake(verticalMargin, 2 * kInterCardSpacing, verticalMargin, 2 * kInterCardSpacing);
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+- (CGFloat)collectionView:(UICollectionView *)collectionView
+                                 layout:(UICollectionViewLayout *)collectionViewLayout
+    minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
     return 0.0f;
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+- (CGFloat)collectionView:(UICollectionView *)collectionView
+                                      layout:(UICollectionViewLayout *)collectionViewLayout
+    minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
     return 0.0f;
 }
 
 // call this function when a user taps a card. know which index was tapped (left being 0, right being 4)
-- (void)cardTapped:(NSInteger)index {
+- (void)cardTapped:(NSInteger)index
+{
     _cardsReset = [self isAllCardsFaceDown];
-    
+
     // we know if it's first card tapped or not based on if cards have been reset (all were facing down)
     if (_cardsReset) {
         [self chooseFirstCard:index];
@@ -236,20 +245,22 @@ static NSUInteger const kNumberOfGameCards = 5;
     }
 }
 
-- (MTCard *)chooseCardFromArray:(NSArray *)cardsArray {
+- (MTCard *)chooseCardFromArray:(NSArray *)cardsArray
+{
     NSUInteger randomIndex = arc4random() % [cardsArray count];
-    
+
     MTCard *card = cardsArray[randomIndex];
-    
+
     while ([_gameCards containsObject:card]) {
         NSUInteger randomIndex = arc4random() % [cardsArray count];
         card = cardsArray[randomIndex];
     }
-    
+
     return card;
 }
 
-- (void)chooseCard:(NSInteger)index {
+- (void)chooseCard:(NSInteger)index
+{
     // first card chosen was a face, so all cards before must be symmetrical
     if (index < _firstCardIndex && _isFirstCardFace) {
         MTCard *card = [self chooseCardFromArray:self.cardManager.symmetricalCards];
@@ -261,56 +272,57 @@ static NSUInteger const kNumberOfGameCards = 5;
         // randomly choose face or symmetrical
         if ([self thisWillFlipAQuarter]) {
             MTCard *card = [self chooseCardFromArray:self.cardManager.symmetricalCards];
-            
+
             _gameCards[index] = card;
         } else {
             MTCard *card = [self chooseCardFromArray:self.cardManager.faceCards];
-            
+
             _gameCards[index] = card;
         }
     }
     // face card first card, all cards after must be symmetrical
     else if (_isFirstCardFace) {
         MTCard *card = [self chooseCardFromArray:self.cardManager.symmetricalCards];
-        
+
         _gameCards[index] = card;
     }
     // asymmetrical card first, any cards after
     else {
         MTCard *card = [self chooseCardFromArray:self.cardManager.allCards];
-        
+
         _gameCards[index] = card;
     }
 }
 
 // only execute if cards are reset
-- (void)chooseFirstCard:(NSInteger)index {
+- (void)chooseFirstCard:(NSInteger)index
+{
     _firstCardIndex = index;
-    
+
     // randomly chooses whether to select a face card or asymmetrical card
     if ([self thisWillRollADice]) {
         _isFirstCardFace = YES;
-        
+
         // set first card to random face card
         NSUInteger randomIndex = arc4random() % [self.cardManager.faceCards count];
         _gameCards[_firstCardIndex] = self.cardManager.faceCards[randomIndex];
-        
+
     } else {
         _isFirstCardFace = NO;
-        
+
         // set first card to random asymmetrical card
         NSUInteger randomIndex = arc4random() % [self.cardManager.asymmetricalCards count];
         _gameCards[_firstCardIndex] = self.cardManager.asymmetricalCards[randomIndex];
     }
-    
 }
 
 #pragma mark - Card Algorithm Helper methods
 
 // it's like flipping a quarter. lol.
-- (BOOL)thisWillFlipAQuarter {
+- (BOOL)thisWillFlipAQuarter
+{
     int x = arc4random() % 2;
-    
+
     if (x == 1) {
         return YES; // 25% of the time you get 0
     } else {
@@ -319,9 +331,10 @@ static NSUInteger const kNumberOfGameCards = 5;
 }
 
 // it's like rolling a dice with yes/no values. lol.
-- (BOOL)thisWillRollADice {
+- (BOOL)thisWillRollADice
+{
     int x = arc4random() % 6;
-    
+
     if (x < 2) {
         return YES;
     } else {
@@ -330,7 +343,8 @@ static NSUInteger const kNumberOfGameCards = 5;
 }
 
 // checks to see if all cards are face down
-- (BOOL)isAllCardsFaceDown {
+- (BOOL)isAllCardsFaceDown
+{
     for (MTCardCollectionViewCell *cell in self.collectionView.visibleCells) {
         if (!cell.faceDown) {
             return NO;
@@ -340,7 +354,8 @@ static NSUInteger const kNumberOfGameCards = 5;
     return YES;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

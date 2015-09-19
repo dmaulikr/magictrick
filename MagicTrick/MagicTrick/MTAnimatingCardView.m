@@ -42,11 +42,15 @@
 {
     [self stopAnimating];
 
-    self.fireTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f / 10.0f
+    self.fireTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f / 2.0f
                                                       target:self
-                                                    selector:@selector(animateNextCard:)
+                                                    selector:@selector(animateNextCard)
                                                     userInfo:nil
                                                      repeats:YES];
+
+    for (int i = 0; i < 30; i++) {
+        [self animateNextCard];
+    }
 }
 
 - (void)stopAnimating
@@ -64,32 +68,44 @@
 
 #pragma mark - Utility methods
 
-- (void)animateNextCard:(NSTimer *)timer
+- (void)animateNextCard
 {
-    if (self.currentCardCount <= 25) {
+    if (self.currentCardCount <= 100) {
         self.currentCardCount++;
 
         NSMutableArray *quadrants = [@[ @(0), @(1), @(2), @(3) ] mutableCopy];
 
+        // Each new card will start animating from a random quadrant
         NSNumber *startQuadrant = quadrants[arc4random() % quadrants.count];
+
         [quadrants removeObject:startQuadrant];
 
+        // Each new card will animate to another random quadrant
         NSNumber *endQuadrant = quadrants[arc4random() % quadrants.count];
 
+        // Get the next card view to display
+        UIImageView *cardView = [self generateNewCardView];
+
+        // Pick a random point within each of the chosen random quadrants
         CGPoint startCenter = [self randomPointInQuadrant:[startQuadrant unsignedIntegerValue]];
         CGPoint endCenter = [self randomPointInQuadrant:[endQuadrant unsignedIntegerValue]];
 
-        UIImageView *cardView = [self generateNewCardView];
-
+        // Each new card is displayed with a random scale
         CGAffineTransform scale = [self randomScaledTransform];
+
+        // Each new card animates at a different speed
         CGFloat randomDuration = [self randomFloatBetweenMinimum:20.0f andMaximum:30.0f];
 
+        // Each new card rotates at a different rate
+        CGFloat randomNumberOfRotations = [self randomFloatBetweenMinimum:-0.3f andMaximum:0.3f];
+
+        // Set the random properties on the card view
         cardView.transform = scale;
         cardView.center = startCenter;
 
+        // Add the card to the view
         [self insertSubview:cardView belowSubview:self.dimmingView];
 
-        CGFloat randomNumberOfRotations = [self randomFloatBetweenMinimum:-0.3f andMaximum:0.3f];
         [UIView animateWithDuration:randomDuration
             animations:^{
                 [self addSpinAnimationToView:cardView
@@ -107,7 +123,7 @@
 
 - (UIImageView *)generateNewCardView
 {
-    NSArray *backProbabilityArray = @[ @(YES), @(YES), @(NO), @(NO), @(NO), @(NO), @(NO), @(NO), @(NO), @(NO) ];
+    NSArray *backProbabilityArray = @[ @(YES), @(YES), @(YES), @(NO), @(NO), @(NO), @(NO), @(NO), @(NO), @(NO) ];
 
     BOOL isFaceDown = [backProbabilityArray[arc4random() % backProbabilityArray.count] boolValue];
     UIImage *cardImage = nil;
