@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7EE48F07-037C-4305-8CF1-3ABFDEA4DD4D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MagicTrick</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>503139C6B4CDCA4C82C866EA377C8E43D441428B</key>
+		<string>github.com:loopyz/magictrick.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MagicTrick/MagicTrick.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>503139C6B4CDCA4C82C866EA377C8E43D441428B</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:loopyz/magictrick.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>503139C6B4CDCA4C82C866EA377C8E43D441428B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>503139C6B4CDCA4C82C866EA377C8E43D441428B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>magictrick</string>
+		</dict>
+	</array>
+</dict>
+</plist>
