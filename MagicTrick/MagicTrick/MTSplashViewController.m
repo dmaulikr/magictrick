@@ -141,7 +141,7 @@
 {
     [super viewDidAppear:animated];
     [self animateInitialGhostAndPlayButtonIfNecessary];
-    [[MTSoundManager sharedInstance] startBackgroundMusic];
+//    [[MTSoundManager sharedInstance] startBackgroundMusic];
 }
 
 - (void)animateInitialGhostAndPlayButtonIfNecessary

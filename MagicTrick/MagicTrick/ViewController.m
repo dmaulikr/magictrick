@@ -40,6 +40,8 @@ static NSUInteger const kNumberOfGameCards = 5;
 
 @property (nonatomic, strong) SCGrowingButton *homeButton;
 
+@property (nonatomic, strong) SCGrowingButton *shuffleButton;
+
 @end
 
 @implementation ViewController
@@ -81,14 +83,23 @@ static NSUInteger const kNumberOfGameCards = 5;
 
     UIImage *homeImage = [UIImage imageNamed:@"homeButton.png"];
     self.homeButton =
-        [[SCGrowingButton alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - (homeImage.size.height) - 40,
-                                                          homeImage.size.width + 40, homeImage.size.height + 40)];
+        [[SCGrowingButton alloc] initWithFrame:CGRectMake(0, 0, homeImage.size.width + 40, homeImage.size.height + 40)];
     self.homeButton.image = homeImage;
     self.homeButton.imageInset = CGSizeMake(20, 20);
-    self.homeButton.maximumScale = 1.05f;
-    self.homeButton.center = CGPointMake(CGRectGetWidth(self.view.bounds) / 2, self.homeButton.center.y);
+    self.homeButton.maximumScale = 1.1f;
     [self.homeButton addTarget:self action:@selector(home:)];
     [self.view addSubview:self.homeButton];
+
+    UIImage *shuffleImage = [UIImage imageNamed:@"shuffleButton.png"];
+    self.shuffleButton = [[SCGrowingButton alloc]
+        initWithFrame:CGRectMake(0, self.view.frame.size.height - (shuffleImage.size.height) - 40,
+                                 shuffleImage.size.width + 40, shuffleImage.size.height + 40)];
+    self.shuffleButton.image = shuffleImage;
+    self.shuffleButton.imageInset = CGSizeMake(20, 20);
+    self.shuffleButton.maximumScale = 1.1f;
+    self.shuffleButton.center = CGPointMake(CGRectGetWidth(self.view.bounds) / 2, self.shuffleButton.center.y);
+    [self.shuffleButton addTarget:self action:@selector(shuffle:)];
+    [self.view addSubview:self.shuffleButton];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self initializeCardViews];
@@ -107,12 +118,51 @@ static NSUInteger const kNumberOfGameCards = 5;
     [self.backgroundStarView stopAnimating];
 }
 
+- (void)shuffle:(SCGrowingButton *)button
+{
+    if (self.numberCardsShowing == 5) {
+        _firstCardIndex = -1;
+
+        [UIView animateWithDuration:0.25f
+                         animations:^{
+                             [self.collectionView performBatchUpdates:^{
+                                 NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+
+                                 for (int i = 0; i < self.numberCardsShowing; i++) {
+                                     [indexPaths addObject:[NSIndexPath indexPathForItem:i inSection:0]];
+                                 }
+
+                                 self.numberCardsShowing = 0;
+                                 [self.collectionView deleteItemsAtIndexPaths:indexPaths];
+                             } completion:^(BOOL finished) {
+                                 [self recursiveAnimateCardsIntoView];
+                             }];
+                         }];
+    }
+}
+
 #pragma mark - Navigation methods
 
-- (void)home:(UIButton *)button
+- (void)home:(SCGrowingButton *)button
 {
-    [self.delegate cardViewControllerDidDismiss:self];
+    __weak id<MTCardViewControllerDelegate> weakDelegate = self.delegate;
     self.delegate = nil;
+
+    [UIView animateWithDuration:0.2f
+                     animations:^{
+                         [self.collectionView performBatchUpdates:^{
+                             NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+
+                             for (int i = 0; i < self.numberCardsShowing; i++) {
+                                 [indexPaths addObject:[NSIndexPath indexPathForItem:i inSection:0]];
+                             }
+
+                             self.numberCardsShowing = 0;
+                             [self.collectionView deleteItemsAtIndexPaths:indexPaths];
+                         } completion:^(BOOL finished) {
+                             [weakDelegate cardViewControllerDidDismiss:self];
+                         }];
+                     }];
 }
 
 - (void)initializeCardViews
@@ -126,14 +176,14 @@ static NSUInteger const kNumberOfGameCards = 5;
     self.collectionView.alpha = 1.0f;
     [self.view insertSubview:self.collectionView belowSubview:self.homeButton];
 
-    [self animateNextCardIntoView];
+    [self recursiveAnimateCardsIntoView];
 }
 
-- (void)animateNextCardIntoView
+- (void)recursiveAnimateCardsIntoView
 {
     if (self.numberCardsShowing < 5) {
         [[MTSoundManager sharedInstance] playSound:MTSoundCardDeal];
-        
+
         [UIView animateWithDuration:0.17f
                          animations:^{
                              [self.collectionView performBatchUpdates:^{
@@ -142,7 +192,7 @@ static NSUInteger const kNumberOfGameCards = 5;
                                      [NSIndexPath indexPathForItem:self.numberCardsShowing - 1 inSection:0]
                                  ]];
                              } completion:^(BOOL finished) {
-                                 [self animateNextCardIntoView];
+                                 [self recursiveAnimateCardsIntoView];
                              }];
                          }];
     }
@@ -168,18 +218,26 @@ static NSUInteger const kNumberOfGameCards = 5;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Calculate the next card to show, according to Lucy's algorithm
-    [self cardTapped:indexPath.item];
+    // If we are tapping on the first card and it is face up, and there are other cards face up on the table,
+    // then re-shuffle all cards since it would invalidate our game
+    if (_firstCardIndex == indexPath.item && [self currentNumberOfCardsFaceUp] > 1) {
+        [self shuffle:nil];
+    }
 
-    MTCardCollectionViewCell *cell = (MTCardCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    else {
+        // Calculate the next card to show, according to Lucy's algorithm
+        [self cardTapped:indexPath.item];
 
-    // Here we have to get the next appropriate card to display, before flipping the card over
-    cell.card = [self.gameCards objectAtIndex:indexPath.item];
+        MTCardCollectionViewCell *cell = (MTCardCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
 
-    [[MTSoundManager sharedInstance] playSound:MTSoundCardFlip];
+        // Here we have to get the next appropriate card to display, before flipping the card over
+        cell.card = [self.gameCards objectAtIndex:indexPath.item];
 
-    // Finally, flip the card over
-    [cell flipCard];
+        [[MTSoundManager sharedInstance] playSound:MTSoundCardFlip];
+
+        // Finally, flip the card over
+        [cell flipCard];
+    }
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout methods
@@ -352,6 +410,19 @@ static NSUInteger const kNumberOfGameCards = 5;
     }
     _firstCardIndex = -1;
     return YES;
+}
+
+- (NSUInteger)currentNumberOfCardsFaceUp
+{
+    NSUInteger i = 0;
+
+    for (MTCardCollectionViewCell *cell in self.collectionView.visibleCells) {
+        if (!cell.faceDown) {
+            i++;
+        }
+    }
+
+    return i;
 }
 
 - (void)didReceiveMemoryWarning

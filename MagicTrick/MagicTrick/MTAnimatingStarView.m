@@ -15,8 +15,8 @@ typedef NS_ENUM(NSUInteger, MTStarPlane) {
     MTStarPlaneForeground
 };
 
-static CGFloat const MTStarFarBackgroundAnimationDuration = 35.0f;
-static CGFloat const MTStarBackgroundAnimationDuration = 40.0f;
+static CGFloat const MTStarFarBackgroundAnimationDuration = 40.0f;
+static CGFloat const MTStarBackgroundAnimationDuration = 45.0f;
 static CGFloat const MTStarMiddleGroundAnimationDuration = 55.0f;
 static CGFloat const MTStarForegroundAnimationDuration = 80.0f;
 
@@ -191,7 +191,7 @@ static CGFloat const MTStarForegroundAnimationDuration = 80.0f;
         {
             starSize = 4.0f;
             starCount = 25.0f;
-            starAlpha = 0.6f;
+            starAlpha = 0.7f;
             break;
         }
         default:

@@ -76,7 +76,6 @@
 		F748A08D1BACA0040065A4EC /* MTAnimatingCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = F748A08C1BACA0040065A4EC /* MTAnimatingCardView.m */; };
 		F7AF22641BADEA84006C48DF /* card_flip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F7AF22631BADEA84006C48DF /* card_flip.mp3 */; };
 		F7AF22671BADEAC8006C48DF /* MTSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F7AF22661BADEAC8006C48DF /* MTSoundManager.m */; };
-		F7AF226B1BADF120006C48DF /* card_deal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F7AF226A1BADF120006C48DF /* card_deal.mp3 */; };
 		F7AF226F1BADF1BC006C48DF /* card_deal.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F7AF226E1BADF1BC006C48DF /* card_deal.m4a */; };
 		F7D558711BACBF7D009F817E /* MTAnimatingStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D558701BACBF7D009F817E /* MTAnimatingStarView.m */; };
 		F7D558771BACDA15009F817E /* MTCardFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D558761BACDA15009F817E /* MTCardFlowLayout.m */; };
@@ -275,7 +274,6 @@
 		F7AF22631BADEA84006C48DF /* card_flip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = card_flip.mp3; sourceTree = "<group>"; };
 		F7AF22651BADEAC8006C48DF /* MTSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTSoundManager.h; sourceTree = "<group>"; };
 		F7AF22661BADEAC8006C48DF /* MTSoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTSoundManager.m; sourceTree = "<group>"; };
-		F7AF226A1BADF120006C48DF /* card_deal.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = card_deal.mp3; sourceTree = "<group>"; };
 		F7AF226E1BADF1BC006C48DF /* card_deal.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = card_deal.m4a; sourceTree = "<group>"; };
 		F7D5586F1BACBF7D009F817E /* MTAnimatingStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTAnimatingStarView.h; sourceTree = "<group>"; };
 		F7D558701BACBF7D009F817E /* MTAnimatingStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTAnimatingStarView.m; sourceTree = "<group>"; };
@@ -636,7 +634,6 @@
 			isa = PBXGroup;
 			children = (
 				F7AF22631BADEA84006C48DF /* card_flip.mp3 */,
-				F7AF226A1BADF120006C48DF /* card_deal.mp3 */,
 				F7AF226E1BADF1BC006C48DF /* card_deal.m4a */,
 				F7D558781BACDF8A009F817E /* song_of_storms.mp3 */,
 			);
@@ -950,7 +947,6 @@
 				F7D558C71BACEF36009F817E /* Magic_00030@2x.png in Resources */,
 				F7D559B21BACF8B6009F817E /* MAGIC_BOO_00053@2x.png in Resources */,
 				F7D559A21BACF8B6009F817E /* MAGIC_BOO_00037@2x.png in Resources */,
-				F7AF226B1BADF120006C48DF /* card_deal.mp3 in Resources */,
 				F7195E101BAB7239005CC439 /* hearts_q@2x.png in Resources */,
 				F7D559831BACF8B6009F817E /* MAGIC_BOO_00006@2x.png in Resources */,
 				05C1B6EB1BAB6DEF008E2576 /* LaunchScreen.xib in Resources */,
