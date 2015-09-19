@@ -19,6 +19,8 @@
 
 @property (nonatomic, strong) NSNumber *cardHeight;
 
+@property (nonatomic, assign) NSInteger currentCardCount;
+
 @end
 
 @implementation MTAnimatingCardView
@@ -36,11 +38,9 @@
 
 - (void)startAnimating
 {
-    if (self.fireTimer) {
-        [self.fireTimer invalidate];
-    }
+    [self stopAnimating];
     
-    self.fireTimer = [NSTimer scheduledTimerWithTimeInterval:0.2f
+    self.fireTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f/10.0f
                                                       target:self
                                                     selector:@selector(animateNextCard:)
                                                     userInfo:nil
@@ -52,41 +52,50 @@
     if (self.fireTimer) {
         [self.fireTimer invalidate];
     }
+    
+    for (UIView *subview in self.subviews) {
+        [subview removeFromSuperview];
+    }
 }
 
 #pragma mark - Utility methods
 
 - (void)animateNextCard:(NSTimer *)timer
 {
-    NSMutableArray *quadrants = [@[@(0), @(1), @(2), @(3)] mutableCopy];
-    
-    NSNumber *startQuadrant = quadrants[arc4random() % quadrants.count];
-    [quadrants removeObject:startQuadrant];
-    
-    NSNumber *endQuadrant = quadrants[arc4random() % quadrants.count];
-    
-    CGPoint startCenter = [self randomPointInQuadrant:[startQuadrant unsignedIntegerValue]];
-    CGPoint endCenter = [self randomPointInQuadrant:[endQuadrant unsignedIntegerValue]];
-    
-    UIImageView *cardView = [self generateNewCardView];
-    
-    CGAffineTransform scale = [self randomScaledTransform];
-    CGFloat randomDuration = [self randomFloatBetweenMinimum:20.0f andMaximum:30.0f];
-    
-    cardView.transform = scale;
-    cardView.center = startCenter;
-    
-    [self addSubview:cardView];
-    
-    CGFloat randomNumberOfRotations = [self randomFloatBetweenMinimum:-0.3f andMaximum:0.3f];
-    [UIView animateWithDuration:randomDuration
-                     animations:^{
-                         [self addSpinAnimationToView:cardView duration:randomDuration withNumberOfRotations:randomNumberOfRotations];
-                         cardView.center = endCenter;
-                     } completion:^(BOOL finished) {
-                         [cardView.layer removeAllAnimations];
-                         [cardView removeFromSuperview];
-                     }];
+    if (self.currentCardCount <= 25) {
+        self.currentCardCount++;
+        
+        NSMutableArray *quadrants = [@[@(0), @(1), @(2), @(3)] mutableCopy];
+        
+        NSNumber *startQuadrant = quadrants[arc4random() % quadrants.count];
+        [quadrants removeObject:startQuadrant];
+        
+        NSNumber *endQuadrant = quadrants[arc4random() % quadrants.count];
+        
+        CGPoint startCenter = [self randomPointInQuadrant:[startQuadrant unsignedIntegerValue]];
+        CGPoint endCenter = [self randomPointInQuadrant:[endQuadrant unsignedIntegerValue]];
+        
+        UIImageView *cardView = [self generateNewCardView];
+        
+        CGAffineTransform scale = [self randomScaledTransform];
+        CGFloat randomDuration = [self randomFloatBetweenMinimum:20.0f andMaximum:30.0f];
+        
+        cardView.transform = scale;
+        cardView.center = startCenter;
+        
+        [self addSubview:cardView];
+        
+        CGFloat randomNumberOfRotations = [self randomFloatBetweenMinimum:-0.3f andMaximum:0.3f];
+        [UIView animateWithDuration:randomDuration
+                         animations:^{
+                             [self addSpinAnimationToView:cardView duration:randomDuration withNumberOfRotations:randomNumberOfRotations];
+                             cardView.center = endCenter;
+                         } completion:^(BOOL finished) {
+                             [cardView.layer removeAllAnimations];
+                             [cardView removeFromSuperview];
+                             self.currentCardCount--;
+                         }];
+    }
 }
 
 - (UIImageView *)generateNewCardView

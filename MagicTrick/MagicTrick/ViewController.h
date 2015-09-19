@@ -8,8 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@class ViewController;
+
+@protocol MTCardViewControllerDelegate <NSObject>
+
+- (void)cardViewControllerDidDismiss:(ViewController *)cardViewController;
+
+@end
+
 @interface ViewController : UIViewController
 
+@property (nonatomic, weak) id<MTCardViewControllerDelegate> delegate;
 
 @end
 

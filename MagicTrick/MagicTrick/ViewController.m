@@ -10,21 +10,36 @@
 #import "card.h"
 #import "MTCardCollectionViewCell.h"
 #import "MTCardImageManager.h"
+#import "MTAnimatingStarView.h"
+#import "MTCardFlowLayout.h"
+#import "SCGrowingButton.h"
+
+@import AVFoundation;
 
 static CGFloat const kInterCardSpacing = 15.0f;
 static NSUInteger const kNumberOfGameCards = 5;
 
 @interface ViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
+@property (nonatomic, assign) NSUInteger numberCardsShowing;
+
 @property (nonatomic, strong) MTCardImageManager *cardManager;
+
+@property (nonatomic, strong) MTAnimatingStarView *backgroundStarView;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
-@property BOOL isFirstCardFace;
-@property BOOL cardsReset;
-@property NSInteger firstCardIndex;
-
 @property (nonatomic, strong) NSMutableArray *gameCards;
+
+@property (nonatomic, assign) BOOL isFirstCardFace;
+
+@property (nonatomic, assign) BOOL cardsReset;
+
+@property (nonatomic, assign) NSInteger firstCardIndex;
+
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+
+@property (nonatomic, strong) SCGrowingButton *homeButton;
 
 @end
 
@@ -35,7 +50,7 @@ static NSUInteger const kNumberOfGameCards = 5;
     self = [super init];
     
     if (self) {
-        self.view.backgroundColor = [UIColor blackColor];
+        self.view.backgroundColor = [UIColor clearColor];
         self.cardManager = [MTCardImageManager sharedInstance];
         self.gameCards = [[NSMutableArray alloc] init];
         
@@ -51,25 +66,97 @@ static NSUInteger const kNumberOfGameCards = 5;
 {
     [super viewDidLoad];
     
-    [self initializeViews];
+    self.backgroundStarView = [[MTAnimatingStarView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:self.backgroundStarView];
 }
 
-- (void)initializeViews
+- (void)viewWillAppear:(BOOL)animated
 {
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    [super viewWillAppear:animated];
+    [self.backgroundStarView startAnimating];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    UIImage *homeImage = [UIImage imageNamed:@"homeButton.png"];
+    self.homeButton = [[SCGrowingButton alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - (homeImage.size.height) - 40, homeImage.size.width + 40, homeImage.size.height + 40)];
+    self.homeButton.image = homeImage;
+    self.homeButton.imageInset = CGSizeMake(20, 20);
+    self.homeButton.maximumScale = 1.05f;
+    self.homeButton.center = CGPointMake(CGRectGetWidth(self.view.bounds)/2, self.homeButton.center.y);
+    [self.homeButton addTarget:self action:@selector(home:)];
+    [self.view addSubview:self.homeButton];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self initializeCardViews];
+    });
+
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"song_of_storms" ofType:@"mp3"];
+    NSURL *soundUrl = [NSURL fileURLWithPath:path];
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundUrl error:nil];
+    self.audioPlayer.numberOfLoops = -1;
+    [self.audioPlayer play];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.audioPlayer stop];
+    [self.backgroundStarView removeFromSuperview];
+
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.backgroundStarView stopAnimating];
+}
+
+#pragma mark - Navigation methods
+
+- (void)home:(UIButton *)button
+{
+    [self.delegate cardViewControllerDidDismiss:self];
+    self.delegate = nil;
+}
+
+- (void)initializeCardViews
+{
+    MTCardFlowLayout *flowLayout = [[MTCardFlowLayout alloc] init];
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
     self.collectionView.backgroundColor = [UIColor clearColor];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     [self.collectionView registerClass:[MTCardCollectionViewCell class] forCellWithReuseIdentifier:@"cardCell"];
-    [self.view addSubview:self.collectionView];
+    self.collectionView.alpha = 1.0f;
+    [self.view insertSubview:self.collectionView belowSubview:self.homeButton];
+    
+    [self animateNextCardIntoView];
+}
+
+- (void)animateNextCardIntoView
+{
+    if (self.numberCardsShowing < 5) {
+        [UIView animateWithDuration:0.17f
+                         animations:^{
+                             [self.collectionView performBatchUpdates:^{
+                                 self.numberCardsShowing++;
+                                 [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:self.numberCardsShowing-1 inSection:0]]];
+                             } completion:^(BOOL finished) {
+                                 [self animateNextCardIntoView];
+                             }];
+                         }];
+
+    }
 }
 
 #pragma mark - UICollectionViewDataSource methods
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 5;
+    return self.numberCardsShowing;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -103,7 +190,7 @@ static NSUInteger const kNumberOfGameCards = 5;
     CGFloat cardHeight = 525.0f;
     
     CGRect screenRect = [UIScreen mainScreen].bounds;
-    CGFloat totalWidth = CGRectGetWidth(screenRect) - 4 * kInterCardSpacing;
+    CGFloat totalWidth = CGRectGetWidth(screenRect) - 8 * (kInterCardSpacing);
     
     CGFloat scaledCardWidth = totalWidth / kNumberOfGameCards;
     CGFloat scaledCardHeight = (scaledCardWidth / cardWidth) * cardHeight;
@@ -124,7 +211,7 @@ static NSUInteger const kNumberOfGameCards = 5;
     
     CGFloat verticalMargin = (CGRectGetHeight(screenRect) - scaledCardHeight) / 2;
     
-    return UIEdgeInsetsMake(verticalMargin, kInterCardSpacing, verticalMargin, kInterCardSpacing);
+    return UIEdgeInsetsMake(verticalMargin, 2*kInterCardSpacing, verticalMargin, 2*kInterCardSpacing);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
