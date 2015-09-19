@@ -10,6 +10,8 @@
 
 @interface MTAnimatingCardView : UIView
 
+@property (nonatomic, assign) BOOL dimmed;
+
 - (void)startAnimating;
 
 - (void)stopAnimating;

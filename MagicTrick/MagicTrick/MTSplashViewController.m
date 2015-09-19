@@ -49,18 +49,14 @@
     self.splashContainerView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.splashContainerView];
     
-    UIView *cardContainerView = [[UIView alloc] initWithFrame:self.view.bounds];
-    [self.splashContainerView addSubview:cardContainerView];
-    
+//    UIView *cardContainerView = [[UIView alloc] initWithFrame:self.view.bounds];
+//    [self.splashContainerView addSubview:cardContainerView];
+//    
     self.backgroundCardView = [[MTAnimatingCardView alloc] initWithFrame:self.view.bounds];
+    self.backgroundCardView.dimmed = YES;
     [self.backgroundCardView startAnimating];
-    [cardContainerView addSubview:self.backgroundCardView];
-    
-    UIView *darkOverlay = [[UIView alloc] initWithFrame:self.view.bounds];
-    darkOverlay.backgroundColor = [UIColor blackColor];
-    darkOverlay.transform = CGAffineTransformMakeScale(10.0f, 10.0f);
-    darkOverlay.alpha = 0.3f;
-    [cardContainerView addSubview:darkOverlay];
+    [self.splashContainerView addSubview:self.backgroundCardView];
+
 }
 
 - (void)play:(UITapGestureRecognizer *)gesture

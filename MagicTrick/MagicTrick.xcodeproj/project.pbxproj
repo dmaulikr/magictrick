@@ -74,7 +74,6 @@
 		F7195E361BAB8A7B005CC439 /* MTCardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7195E351BAB8A7B005CC439 /* MTCardCollectionViewCell.m */; };
 		F748A08A1BAC9E380065A4EC /* MTSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F748A0891BAC9E380065A4EC /* MTSplashViewController.m */; };
 		F748A08D1BACA0040065A4EC /* MTAnimatingCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = F748A08C1BACA0040065A4EC /* MTAnimatingCardView.m */; };
-		F7D5586E1BACB628009F817E /* playButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7D5586D1BACB628009F817E /* playButton@2x.png */; };
 		F7D558711BACBF7D009F817E /* MTAnimatingStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D558701BACBF7D009F817E /* MTAnimatingStarView.m */; };
 		F7D558771BACDA15009F817E /* MTCardFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F7D558761BACDA15009F817E /* MTCardFlowLayout.m */; };
 		F7D558791BACDF8A009F817E /* song_of_storms.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F7D558781BACDF8A009F817E /* song_of_storms.mp3 */; };
@@ -172,6 +171,9 @@
 		F7D559B61BACF8B6009F817E /* MAGIC_BOO_00057@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7D5597A1BACF8B6009F817E /* MAGIC_BOO_00057@2x.png */; };
 		F7D559B71BACF8B6009F817E /* MAGIC_BOO_00058@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7D5597B1BACF8B6009F817E /* MAGIC_BOO_00058@2x.png */; };
 		F7D559B81BACF8B6009F817E /* MAGIC_BOO_00059@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7D5597C1BACF8B6009F817E /* MAGIC_BOO_00059@2x.png */; };
+		F7D559BA1BADD46B009F817E /* shuffleButton@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7D559B91BADD46B009F817E /* shuffleButton@1x.png */; };
+		F7D559BC1BADD473009F817E /* shuffleButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7D559BB1BADD473009F817E /* shuffleButton@2x.png */; };
+		F7D559BE1BADD479009F817E /* shuffleButton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7D559BD1BADD479009F817E /* shuffleButton@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -266,7 +268,6 @@
 		F748A0891BAC9E380065A4EC /* MTSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTSplashViewController.m; sourceTree = "<group>"; };
 		F748A08B1BACA0040065A4EC /* MTAnimatingCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTAnimatingCardView.h; sourceTree = "<group>"; };
 		F748A08C1BACA0040065A4EC /* MTAnimatingCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTAnimatingCardView.m; sourceTree = "<group>"; };
-		F7D5586D1BACB628009F817E /* playButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playButton@2x.png"; sourceTree = "<group>"; };
 		F7D5586F1BACBF7D009F817E /* MTAnimatingStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTAnimatingStarView.h; sourceTree = "<group>"; };
 		F7D558701BACBF7D009F817E /* MTAnimatingStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTAnimatingStarView.m; sourceTree = "<group>"; };
 		F7D558751BACDA15009F817E /* MTCardFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCardFlowLayout.h; sourceTree = "<group>"; };
@@ -367,6 +368,9 @@
 		F7D5597A1BACF8B6009F817E /* MAGIC_BOO_00057@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MAGIC_BOO_00057@2x.png"; sourceTree = "<group>"; };
 		F7D5597B1BACF8B6009F817E /* MAGIC_BOO_00058@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MAGIC_BOO_00058@2x.png"; sourceTree = "<group>"; };
 		F7D5597C1BACF8B6009F817E /* MAGIC_BOO_00059@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MAGIC_BOO_00059@2x.png"; sourceTree = "<group>"; };
+		F7D559B91BADD46B009F817E /* shuffleButton@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shuffleButton@1x.png"; sourceTree = "<group>"; };
+		F7D559BB1BADD473009F817E /* shuffleButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shuffleButton@2x.png"; sourceTree = "<group>"; };
+		F7D559BD1BADD479009F817E /* shuffleButton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shuffleButton@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -607,9 +611,11 @@
 				F7D558C81BACF33D009F817E /* MagicBoo */,
 				F7D558891BACEF2E009F817E /* PlayButton */,
 				F7D558721BACD3AF009F817E /* Sound */,
-				F7D5586D1BACB628009F817E /* playButton@2x.png */,
 				F7D558851BACE6BA009F817E /* homeButton.png */,
 				F7D558871BACE6BF009F817E /* homeButton@2x.png */,
+				F7D559B91BADD46B009F817E /* shuffleButton@1x.png */,
+				F7D559BB1BADD473009F817E /* shuffleButton@2x.png */,
+				F7D559BD1BADD479009F817E /* shuffleButton@3x.png */,
 				F7195DBB1BAB71A7005CC439 /* card_assets */,
 			);
 			name = Assets;
@@ -860,6 +866,7 @@
 				F7D559A61BACF8B6009F817E /* MAGIC_BOO_00041@2x.png in Resources */,
 				F7D559971BACF8B6009F817E /* MAGIC_BOO_00026@2x.png in Resources */,
 				F7D559A41BACF8B6009F817E /* MAGIC_BOO_00039@2x.png in Resources */,
+				F7D559BA1BADD46B009F817E /* shuffleButton@1x.png in Resources */,
 				F7D5597F1BACF8B6009F817E /* MAGIC_BOO_00002@2x.png in Resources */,
 				F7195DF01BAB722B005CC439 /* diamonds_9@2x.png in Resources */,
 				F7195DD31BAB721D005CC439 /* clubs_7@2x.png in Resources */,
@@ -902,7 +909,6 @@
 				F7195E221BAB724A005CC439 /* spades_5@2x.png in Resources */,
 				F7195DD21BAB721D005CC439 /* clubs_6@2x.png in Resources */,
 				F7D559AC1BACF8B6009F817E /* MAGIC_BOO_00047@2x.png in Resources */,
-				F7D5586E1BACB628009F817E /* playButton@2x.png in Resources */,
 				F7D558B21BACEF36009F817E /* Magic_00009@2x.png in Resources */,
 				F7D559A71BACF8B6009F817E /* MAGIC_BOO_00042@2x.png in Resources */,
 				F7195DC01BAB7214005CC439 /* back@2x.png in Resources */,
@@ -917,6 +923,7 @@
 				F7D558B31BACEF36009F817E /* Magic_00010@2x.png in Resources */,
 				F7195DD71BAB721D005CC439 /* clubs_a@2x.png in Resources */,
 				F7195DF41BAB722B005CC439 /* diamonds_k@2x.png in Resources */,
+				F7D559BC1BADD473009F817E /* shuffleButton@2x.png in Resources */,
 				F7D559AF1BACF8B6009F817E /* MAGIC_BOO_00050@2x.png in Resources */,
 				F7195E2A1BAB724A005CC439 /* spades_k@2x.png in Resources */,
 				F7195E2B1BAB724A005CC439 /* spades_q@2x.png in Resources */,
@@ -944,6 +951,7 @@
 				F7D558C31BACEF36009F817E /* Magic_00026@2x.png in Resources */,
 				F7D5598B1BACF8B6009F817E /* MAGIC_BOO_00014@2x.png in Resources */,
 				F7195E0D1BAB7239005CC439 /* hearts_a@2x.png in Resources */,
+				F7D559BE1BADD479009F817E /* shuffleButton@3x.png in Resources */,
 				F7D559911BACF8B6009F817E /* MAGIC_BOO_00020@2x.png in Resources */,
 				F7D559931BACF8B6009F817E /* MAGIC_BOO_00022@2x.png in Resources */,
 				F7D559801BACF8B6009F817E /* MAGIC_BOO_00003@2x.png in Resources */,
