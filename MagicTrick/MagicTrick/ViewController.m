@@ -182,7 +182,7 @@ static NSUInteger const kNumberOfGameCards = 5;
 - (void)recursiveAnimateCardsIntoView
 {
     if (self.numberCardsShowing < 5) {
-        [[MTSoundManager sharedInstance] playSound:MTSoundCardDeal];
+        [[MTSoundManager sharedInstance] playSound:MTSoundCardDeal fromSplashScreen:NO];
 
         [UIView animateWithDuration:0.17f
                          animations:^{
@@ -233,7 +233,7 @@ static NSUInteger const kNumberOfGameCards = 5;
         // Here we have to get the next appropriate card to display, before flipping the card over
         cell.card = [self.gameCards objectAtIndex:indexPath.item];
 
-        [[MTSoundManager sharedInstance] playSound:MTSoundCardFlip];
+        [[MTSoundManager sharedInstance] playSound:MTSoundCardFlip fromSplashScreen:NO];
 
         // Finally, flip the card over
         [cell flipCard];

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "03BF74F1FCE5B77E4B5C0795"
-               BuildableName = "libPods-MagicTrick.a"
-               BlueprintName = "Pods-MagicTrick"
+               BlueprintIdentifier = "508785CB7840B2DFA0BDE172"
+               BuildableName = "libPods-MagicTrick-KVOController.a"
+               BlueprintName = "Pods-MagicTrick-KVOController"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

@@ -1,10 +1,13 @@
 PODS:
+  - KVOController (1.0.3)
   - TMCache (2.1.0)
 
 DEPENDENCIES:
+  - KVOController
   - TMCache (~> 2.1)
 
 SPEC CHECKSUMS:
+  KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   TMCache: 95ebcc9b3c7e90fb5fd8fc3036cba3aa781c9bed
 
 COCOAPODS: 0.35.0

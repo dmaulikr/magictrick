@@ -72,6 +72,11 @@
 		F7195E2E1BAB7310005CC439 /* MTCardImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F7195E2D1BAB7310005CC439 /* MTCardImageManager.m */; };
 		F7195E311BAB7848005CC439 /* MTCard.m in Sources */ = {isa = PBXBuildFile; fileRef = F7195E301BAB7848005CC439 /* MTCard.m */; };
 		F7195E361BAB8A7B005CC439 /* MTCardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7195E351BAB8A7B005CC439 /* MTCardCollectionViewCell.m */; };
+		F7333A021BAE093B0053A5C0 /* wand_pop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F7333A011BAE093B0053A5C0 /* wand_pop.mp3 */; };
+		F7333A041BAE10A70053A5C0 /* pixie_dust.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F7333A031BAE10A70053A5C0 /* pixie_dust.mp3 */; };
+		F7333A061BAE13990053A5C0 /* pixie_dust.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F7333A051BAE13990053A5C0 /* pixie_dust.m4a */; };
+		F7333A081BAE22620053A5C0 /* wand_tap.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F7333A071BAE22620053A5C0 /* wand_tap.mp3 */; };
+		F7333A0E1BAE28120053A5C0 /* ghost_slide.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F7333A0D1BAE28120053A5C0 /* ghost_slide.mp3 */; };
 		F748A08A1BAC9E380065A4EC /* MTSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F748A0891BAC9E380065A4EC /* MTSplashViewController.m */; };
 		F748A08D1BACA0040065A4EC /* MTAnimatingCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = F748A08C1BACA0040065A4EC /* MTAnimatingCardView.m */; };
 		F7AF22641BADEA84006C48DF /* card_flip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F7AF22631BADEA84006C48DF /* card_flip.mp3 */; };
@@ -267,6 +272,11 @@
 		F7195E301BAB7848005CC439 /* MTCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCard.m; sourceTree = "<group>"; };
 		F7195E341BAB8A7B005CC439 /* MTCardCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTCardCollectionViewCell.h; sourceTree = "<group>"; };
 		F7195E351BAB8A7B005CC439 /* MTCardCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCardCollectionViewCell.m; sourceTree = "<group>"; };
+		F7333A011BAE093B0053A5C0 /* wand_pop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wand_pop.mp3; sourceTree = "<group>"; };
+		F7333A031BAE10A70053A5C0 /* pixie_dust.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pixie_dust.mp3; sourceTree = "<group>"; };
+		F7333A051BAE13990053A5C0 /* pixie_dust.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = pixie_dust.m4a; sourceTree = "<group>"; };
+		F7333A071BAE22620053A5C0 /* wand_tap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wand_tap.mp3; sourceTree = "<group>"; };
+		F7333A0D1BAE28120053A5C0 /* ghost_slide.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ghost_slide.mp3; sourceTree = "<group>"; };
 		F748A0881BAC9E380065A4EC /* MTSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTSplashViewController.h; sourceTree = "<group>"; };
 		F748A0891BAC9E380065A4EC /* MTSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTSplashViewController.m; sourceTree = "<group>"; };
 		F748A08B1BACA0040065A4EC /* MTAnimatingCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTAnimatingCardView.h; sourceTree = "<group>"; };
@@ -633,6 +643,11 @@
 		F7D558721BACD3AF009F817E /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				F7333A031BAE10A70053A5C0 /* pixie_dust.mp3 */,
+				F7333A051BAE13990053A5C0 /* pixie_dust.m4a */,
+				F7333A011BAE093B0053A5C0 /* wand_pop.mp3 */,
+				F7333A071BAE22620053A5C0 /* wand_tap.mp3 */,
+				F7333A0D1BAE28120053A5C0 /* ghost_slide.mp3 */,
 				F7AF22631BADEA84006C48DF /* card_flip.mp3 */,
 				F7AF226E1BADF1BC006C48DF /* card_deal.m4a */,
 				F7D558781BACDF8A009F817E /* song_of_storms.mp3 */,
@@ -890,10 +905,12 @@
 				F7195E081BAB7239005CC439 /* hearts_6@2x.png in Resources */,
 				F7D558BB1BACEF36009F817E /* Magic_00018@2x.png in Resources */,
 				F7D5597E1BACF8B6009F817E /* MAGIC_BOO_00001@2x.png in Resources */,
+				F7333A061BAE13990053A5C0 /* pixie_dust.m4a in Resources */,
 				F7D5599A1BACF8B6009F817E /* MAGIC_BOO_00029@2x.png in Resources */,
 				F7D558AD1BACEF36009F817E /* Magic_00004@2x.png in Resources */,
 				F7D558C61BACEF36009F817E /* Magic_00029@2x.png in Resources */,
 				F7D559B71BACF8B6009F817E /* MAGIC_BOO_00058@2x.png in Resources */,
+				F7333A021BAE093B0053A5C0 /* wand_pop.mp3 in Resources */,
 				F7D5599C1BACF8B6009F817E /* MAGIC_BOO_00031@2x.png in Resources */,
 				F7195DF31BAB722B005CC439 /* diamonds_j@2x.png in Resources */,
 				F7D558C41BACEF36009F817E /* Magic_00027@2x.png in Resources */,
@@ -903,6 +920,7 @@
 				F7195DEB1BAB722B005CC439 /* diamonds_4@2x.png in Resources */,
 				F7D5598D1BACF8B6009F817E /* MAGIC_BOO_00016@2x.png in Resources */,
 				F7D5599F1BACF8B6009F817E /* MAGIC_BOO_00034@2x.png in Resources */,
+				F7333A041BAE10A70053A5C0 /* pixie_dust.mp3 in Resources */,
 				05C1B6E61BAB6DEF008E2576 /* Main.storyboard in Resources */,
 				F7195E061BAB7239005CC439 /* hearts_4@2x.png in Resources */,
 				F7195E071BAB7239005CC439 /* hearts_5@2x.png in Resources */,
@@ -946,6 +964,7 @@
 				F7D5599E1BACF8B6009F817E /* MAGIC_BOO_00033@2x.png in Resources */,
 				F7D558C71BACEF36009F817E /* Magic_00030@2x.png in Resources */,
 				F7D559B21BACF8B6009F817E /* MAGIC_BOO_00053@2x.png in Resources */,
+				F7333A0E1BAE28120053A5C0 /* ghost_slide.mp3 in Resources */,
 				F7D559A21BACF8B6009F817E /* MAGIC_BOO_00037@2x.png in Resources */,
 				F7195E101BAB7239005CC439 /* hearts_q@2x.png in Resources */,
 				F7D559831BACF8B6009F817E /* MAGIC_BOO_00006@2x.png in Resources */,
@@ -956,6 +975,7 @@
 				F7195DED1BAB722B005CC439 /* diamonds_6@2x.png in Resources */,
 				F7D559981BACF8B6009F817E /* MAGIC_BOO_00027@2x.png in Resources */,
 				F7D5599D1BACF8B6009F817E /* MAGIC_BOO_00032@2x.png in Resources */,
+				F7333A081BAE22620053A5C0 /* wand_tap.mp3 in Resources */,
 				F7D559B81BACF8B6009F817E /* MAGIC_BOO_00059@2x.png in Resources */,
 				F7D559A11BACF8B6009F817E /* MAGIC_BOO_00036@2x.png in Resources */,
 				F7D559AB1BACF8B6009F817E /* MAGIC_BOO_00046@2x.png in Resources */,
@@ -1175,6 +1195,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COMPRESS_PNG_FILES = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = MagicTrick/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1187,6 +1209,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COMPRESS_PNG_FILES = NO;
 				INFOPLIST_FILE = MagicTrick/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
