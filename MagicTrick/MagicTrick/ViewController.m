@@ -237,6 +237,16 @@ static NSUInteger const kNumberOfGameCards = 5;
 
         // Finally, flip the card over
         [cell flipCard];
+
+        // If we just flipped a card over
+        if (!cell.faceDown) {
+            CGFloat r = (CGFloat)arc4random() / ((CGFloat)UINT32_MAX + 1);
+            BOOL shouldInsert = r < 0.35f; // 20% chance of inserting random object
+
+            if (shouldInsert) {
+                [self.backgroundStarView insertRandomObject];
+            }
+        }
     }
 }
 
