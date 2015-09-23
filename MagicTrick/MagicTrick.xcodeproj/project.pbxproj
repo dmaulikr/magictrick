@@ -79,6 +79,7 @@
 		F7333A0E1BAE28120053A5C0 /* ghost_slide.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F7333A0D1BAE28120053A5C0 /* ghost_slide.mp3 */; };
 		F748A08A1BAC9E380065A4EC /* MTSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F748A0891BAC9E380065A4EC /* MTSplashViewController.m */; };
 		F748A08D1BACA0040065A4EC /* MTAnimatingCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = F748A08C1BACA0040065A4EC /* MTAnimatingCardView.m */; };
+		F76DF7F21BB2559C00FA4BE0 /* magictrick.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F76DF7F11BB2559C00FA4BE0 /* magictrick.xcassets */; settings = {ASSET_TAGS = (); }; };
 		F7AF22641BADEA84006C48DF /* card_flip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F7AF22631BADEA84006C48DF /* card_flip.mp3 */; };
 		F7AF22671BADEAC8006C48DF /* MTSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F7AF22661BADEAC8006C48DF /* MTSoundManager.m */; };
 		F7AF226F1BADF1BC006C48DF /* card_deal.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F7AF226E1BADF1BC006C48DF /* card_deal.m4a */; };
@@ -196,7 +197,7 @@
 
 /* Begin PBXFileReference section */
 		0184E4B51859B7982055EE24 /* Pods-MagicTrick.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagicTrick.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MagicTrick/Pods-MagicTrick.debug.xcconfig"; sourceTree = "<group>"; };
-		05C1B6D71BAB6DEF008E2576 /* MagicTrick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicTrick.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		05C1B6D71BAB6DEF008E2576 /* Chillah Tricks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chillah Tricks.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		05C1B6DB1BAB6DEF008E2576 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05C1B6DC1BAB6DEF008E2576 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		05C1B6DE1BAB6DEF008E2576 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -281,6 +282,7 @@
 		F748A0891BAC9E380065A4EC /* MTSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTSplashViewController.m; sourceTree = "<group>"; };
 		F748A08B1BACA0040065A4EC /* MTAnimatingCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTAnimatingCardView.h; sourceTree = "<group>"; };
 		F748A08C1BACA0040065A4EC /* MTAnimatingCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTAnimatingCardView.m; sourceTree = "<group>"; };
+		F76DF7F11BB2559C00FA4BE0 /* magictrick.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = magictrick.xcassets; sourceTree = "<group>"; };
 		F7AF22631BADEA84006C48DF /* card_flip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = card_flip.mp3; sourceTree = "<group>"; };
 		F7AF22651BADEAC8006C48DF /* MTSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTSoundManager.h; sourceTree = "<group>"; };
 		F7AF22661BADEAC8006C48DF /* MTSoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTSoundManager.m; sourceTree = "<group>"; };
@@ -423,7 +425,7 @@
 		05C1B6D81BAB6DEF008E2576 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				05C1B6D71BAB6DEF008E2576 /* MagicTrick.app */,
+				05C1B6D71BAB6DEF008E2576 /* Chillah Tricks.app */,
 				05C1B6F01BAB6DEF008E2576 /* MagicTrickTests.xctest */,
 			);
 			name = Products;
@@ -636,6 +638,7 @@
 				F7D559BB1BADD473009F817E /* shuffleButton@2x.png */,
 				F7D559BD1BADD479009F817E /* shuffleButton@3x.png */,
 				F7195DBB1BAB71A7005CC439 /* card_assets */,
+				F76DF7F11BB2559C00FA4BE0 /* magictrick.xcassets */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -779,7 +782,7 @@
 			);
 			name = MagicTrick;
 			productName = MagicTrick;
-			productReference = 05C1B6D71BAB6DEF008E2576 /* MagicTrick.app */;
+			productReference = 05C1B6D71BAB6DEF008E2576 /* Chillah Tricks.app */;
 			productType = "com.apple.product-type.application";
 		};
 		05C1B6EF1BAB6DEF008E2576 /* MagicTrickTests */ = {
@@ -977,6 +980,7 @@
 				F7D5599D1BACF8B6009F817E /* MAGIC_BOO_00032@2x.png in Resources */,
 				F7333A081BAE22620053A5C0 /* wand_tap.mp3 in Resources */,
 				F7D559B81BACF8B6009F817E /* MAGIC_BOO_00059@2x.png in Resources */,
+				F76DF7F21BB2559C00FA4BE0 /* magictrick.xcassets in Resources */,
 				F7D559A11BACF8B6009F817E /* MAGIC_BOO_00036@2x.png in Resources */,
 				F7D559AB1BACF8B6009F817E /* MAGIC_BOO_00046@2x.png in Resources */,
 				F7195DF21BAB722B005CC439 /* diamonds_a@2x.png in Resources */,
@@ -1199,7 +1203,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = MagicTrick/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Chillah Tricks";
 			};
 			name = Debug;
 		};
@@ -1212,7 +1216,7 @@
 				COMPRESS_PNG_FILES = NO;
 				INFOPLIST_FILE = MagicTrick/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Chillah Tricks";
 			};
 			name = Release;
 		};

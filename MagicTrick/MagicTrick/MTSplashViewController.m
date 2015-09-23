@@ -169,12 +169,33 @@
 
                 // Pre-render the image using CoreGraphics
                 UIImage *frameImage = [UIImage imageWithContentsOfFile:imagePath];
-                UIGraphicsBeginImageContextWithOptions(frameImage.size, NO, [UIScreen mainScreen].scale);
-                [frameImage drawInRect:CGRectMake(0, 0, frameImage.size.width, frameImage.size.height)];
-                UIImage *renderedImage = UIGraphicsGetImageFromCurrentImageContext();
-                UIGraphicsEndImageContext();
 
-                [animationImages addObject:renderedImage];
+                CGImageRef image = frameImage.CGImage;
+
+                // make a bitmap context of a suitable size to draw to, forcing decode
+                size_t width = CGImageGetWidth(image);
+                size_t height = CGImageGetHeight(image);
+
+                CGColorSpaceRef colourSpace = CGColorSpaceCreateDeviceRGB();
+                CGContextRef imageContext =
+                    CGBitmapContextCreate(NULL, width, height, 8, width * 4, colourSpace,
+                                          kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
+                CGColorSpaceRelease(colourSpace);
+
+                // draw the image to the context, release it
+                CGContextDrawImage(imageContext, CGRectMake(0, 0, width, height), image);
+
+                // now get an image ref from the context
+                CGImageRef outputImage = CGBitmapContextCreateImage(imageContext);
+
+                UIImage *cachedImage =
+                    [UIImage imageWithCGImage:outputImage scale:2.0f orientation:UIImageOrientationUp];
+
+                // clean up
+                CGImageRelease(outputImage);
+                CGContextRelease(imageContext);
+
+                [animationImages addObject:cachedImage];
             }
 
             self.ghostAnimationImages = [animationImages copy];
@@ -206,12 +227,33 @@
 
                 // Pre-render the image using CoreGraphics
                 UIImage *frameImage = [UIImage imageWithContentsOfFile:imagePath];
-                UIGraphicsBeginImageContextWithOptions(frameImage.size, NO, [UIScreen mainScreen].scale);
-                [frameImage drawInRect:CGRectMake(0, 0, frameImage.size.width, frameImage.size.height)];
-                UIImage *renderedImage = UIGraphicsGetImageFromCurrentImageContext();
-                UIGraphicsEndImageContext();
 
-                [animationImages addObject:renderedImage];
+                CGImageRef image = frameImage.CGImage;
+
+                // make a bitmap context of a suitable size to draw to, forcing decode
+                size_t width = CGImageGetWidth(image);
+                size_t height = CGImageGetHeight(image);
+
+                CGColorSpaceRef colourSpace = CGColorSpaceCreateDeviceRGB();
+                CGContextRef imageContext =
+                    CGBitmapContextCreate(NULL, width, height, 8, width * 4, colourSpace,
+                                          kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
+                CGColorSpaceRelease(colourSpace);
+
+                // draw the image to the context, release it
+                CGContextDrawImage(imageContext, CGRectMake(0, 0, width, height), image);
+
+                // now get an image ref from the context
+                CGImageRef outputImage = CGBitmapContextCreateImage(imageContext);
+
+                UIImage *cachedImage =
+                    [UIImage imageWithCGImage:outputImage scale:2.0f orientation:UIImageOrientationUp];
+
+                // clean up
+                CGImageRelease(outputImage);
+                CGContextRelease(imageContext);
+
+                [animationImages addObject:cachedImage];
             }
 
             self.playButtonAnimationImages = [animationImages copy];
@@ -240,7 +282,7 @@
             [self.ghostImageView startAnimating];
 
             [[MTSoundManager sharedInstance] playSound:MTSoundGhostSlide fromSplashScreen:YES];
-            
+
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(30.0f / 30.0f * NSEC_PER_SEC)),
                            dispatch_get_main_queue(), ^{
                                [[MTSoundManager sharedInstance] playSound:MTSoundWandPop fromSplashScreen:YES];
@@ -266,14 +308,16 @@
     self.ghostImageView.animationImages = self.idleGhostAnimationImages;
     [self.ghostImageView startAnimating];
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((30.0f) / 30.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[MTSoundManager sharedInstance] playSound:MTSoundWandTap fromSplashScreen:YES];
-    });
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((46.0f) / 30.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[MTSoundManager sharedInstance] playSound:MTSoundWandTap fromSplashScreen:YES];
-    });
-    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((30.0f) / 30.0f * NSEC_PER_SEC)),
+                   dispatch_get_main_queue(), ^{
+                       [[MTSoundManager sharedInstance] playSound:MTSoundWandTap fromSplashScreen:YES];
+                   });
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((46.0f) / 30.0f * NSEC_PER_SEC)),
+                   dispatch_get_main_queue(), ^{
+                       [[MTSoundManager sharedInstance] playSound:MTSoundWandTap fromSplashScreen:YES];
+                   });
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self recursiveAnimateIdleGhost];
     });
